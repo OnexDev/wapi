@@ -3,7 +3,11 @@ export default {
   ssr: false,
 
   // Target: https://go.nuxtjs.dev/config-target
+  // target: "static",
   target: "static",
+  router: {
+    base: "/wapi-gp/"
+  },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -14,6 +18,8 @@ export default {
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      // { "http-equiv":"Content-Security-Policy", content="upgrade-insecure-requests"},
+
       { hid: "description", name: "description", content: "" }
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
@@ -35,23 +41,25 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/buefy
     "nuxt-buefy",
-    "@nuxtjs/style-resources",
-    "@nuxtjs/axios"
+    "@nuxtjs/style-resources"
+    // "@nuxtjs/axios",
+    // "@nuxtjs/proxy"
   ],
   styleResources: {
     scss: ["@/assets/scss/*.scss"]
   },
-  axios: {
-    proxy: true,
-    prefix: "/api", // it only work when proxy is enabled
-    credentials: true
-  },
-  proxy: {
-    "/api": {
-      target: process.server ? "http://localhost:8000" : "https://my.space",
-      changeOrigin: true
-    }
-  },
+  // axios: {
+  //   proxy: true,
+  //   prefix: "/api/"
+  // },
+  // proxy: {
+  //   "/api": {
+  //     target: process.server
+  //       ? "https://localhost:3000"
+  //       : "https://onexdev.github.io/",
+  //     changeOrigin: true
+  //   }
+  // },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {}
 };
