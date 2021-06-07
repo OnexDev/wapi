@@ -102,21 +102,25 @@ export default {
     };
   },
   created() {
-    this.$root.$on("changedItem", obj => {
-      // this.data.$set(item.name, obj.message);
-      this.data.forEach(o => {
-        if (o.id == obj.id) {
-          // this.$set(o.name, obj.message);
-          console.log(o.id + " - " + obj.id + " - " + o.name);
-        }
-      });
+    this.$nuxt.$on("changedItem", obj => {
+      this.$set(
+        this.data,
+        this.data.map(o => {
+          if (o.id == obj.id) {
+            o.name = obj.message;
+            console.log(o.id + " - " + obj.id + " - " + o.name);
+          }
+        })
+      );
+
+      this.data.push(
+        (this.data.filter(function(item) {
+          return item.id == obj.id;
+        })[0].name = obj.message)
+      );
+
+      // this.data.splice(this.data.lenght);
       console.log(this.data);
-      // this.data.$set(
-      //   (this.data[this.data.find(item => item.id === obj.id)].name =
-      //     obj.message)
-      // );
-      // this.showModal = true;
-      // this.modalType = obj.type;
     });
   },
   computed: {
@@ -189,6 +193,7 @@ export default {
     }
   },
   mounted() {
+    console.log(this.data);
     const asyncAxiosApi = async () => {
       await this.city.forEach((item, i) => {
         // let url = `https://api.openweathermap.org/data/2.5/weather?id=${item}&lang=ru&appid=a7b7478ece778d4363053ebdbadd7249`;
@@ -246,7 +251,8 @@ export default {
           });
       });
     };
-    asyncAxiosApi();
+    if (this.$nuxt.data != null) {
+    } else asyncAxiosApi();
   }
 };
 var orderByName = function(d1, d2) {

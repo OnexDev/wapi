@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     saveChanges() {
-      this.$root.$emit("changedItem", {
+      this.$nuxt.$emit("changedItem", {
         id: this.$route.params.id,
         message: this.inputValue
       });
@@ -38,33 +38,7 @@ export default {
   },
   mounted() {
     console.log(this.$route.params.id);
-    // const asyncAxiosApi = async () => {
-    //   await fetch(
-    //     `https://api.openweathermap.org/data/2.5/weather?id=${this.$route.params.id}&lang=ru&appid=a7b7478ece778d4363053ebdbadd7249`
-    //   )
-    //     .then(response => {
-    //       if (response.status >= 200 && response.status < 300) {
-    //         return response;
-    //       } else {
-    //         let error = new Error(response.statusText);
-    //         error.response = response;
-    //         throw error;
-    //       }
-    //     })
-    //     .then(response => response.json())
-    //     .then(json => this.data.push(json))
-    //     .catch(error => {
-    //       this.errorPull = error.message;
-    //       console.log("Error: " + error.message);
-    //       console.log(error.response);
-    //     });
-    // };
-    // asyncAxiosApi();
-    // this.data.forEach(key => {
-    //   console.log(key);
-    // });
     this.inputValue = this.$route.params.name;
-    // console.log(this.$route.params.name);
   }
 };
 </script>
