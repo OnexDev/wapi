@@ -8,7 +8,7 @@
       /> -->
     </div>
     <div class="flex">
-      <b-field label="Название города (eng)">
+      <b-field label="Название города">
         <b-input v-model="inputValue"></b-input>
       </b-field>
       <b-button type="is-primary" @click="saveChanges">Сохранить</b-button>
@@ -28,12 +28,21 @@ export default {
     // console.log(this.data);
     // this.inputValue = data[0].name;
   },
+  watch: {
+    inputValue() {
+      // console.log(this.inputValue);
+    }
+  },
   methods: {
     saveChanges() {
-      this.$nuxt.$emit("changedItem", {
-        id: this.$route.params.id,
-        message: this.inputValue
-      });
+      let id = this.$route.params.id;
+      let val = this.inputValue;
+      console.log(val);
+      this.$store.commit("CHANGE_ITEMNAME", { id, val });
+      // this.$nuxt.$emit("changedItem", {
+      //   id: this.$route.params.id,
+      //   message: this.inputValue
+      // });
     }
   },
   mounted() {
